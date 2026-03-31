@@ -12,4 +12,9 @@ public class HelloController {
     public String hello(){
         return "hello spring";
     }
+
+    @GetMapping("/hello-view")
+    public String hello_view(){
+        return "hello";
+    }
 }
