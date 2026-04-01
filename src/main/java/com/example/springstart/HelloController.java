@@ -26,8 +26,12 @@ public class HelloController {
         if (name == null || name.isBlank()) {
             name = "guest";
         }
-
         model.addAttribute("name", name);
         return "hello-mvc";
+    }
+
+    @GetMapping("/form")
+    public String form() {
+        return "form";
     }
 }
