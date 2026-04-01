@@ -1,5 +1,6 @@
 package com.example.springstart;
 
+import com.example.springstart.service.HelloService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,6 +9,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class HelloController {
+
+    private final HelloService helloService;
+
+    public HelloController(HelloService helloService) {
+        this.helloService = helloService;
+    }
 
     @GetMapping("/hello")
     @ResponseBody
@@ -22,12 +29,9 @@ public class HelloController {
 
     @GetMapping("/hello-mvc")
     public String helloMvc(@RequestParam(required = false) String name, Model model) {
-
-        if (name == null || name.isBlank()) {
-            name = "guest";
-        }
-        model.addAttribute("name", name);
-        return "hello-mvc";
+        String welcome = helloService.sayHello(name);
+        model.addAttribute("welcome", welcome);
+        return "service";
     }
 
     @GetMapping("/form")
