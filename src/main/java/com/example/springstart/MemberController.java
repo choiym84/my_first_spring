@@ -24,8 +24,9 @@ public class MemberController {
     }
 
     @PostMapping("/new")
-    public String joinMember(@RequestParam("name") String name) {
-        service.join(new Member(0L, name));
+    public String joinMember(MemberForm name) {
+//        System.out.println(name);
+        service.join(new Member(0L, name.getName()));
         return "redirect:/member/members";
     }
 
