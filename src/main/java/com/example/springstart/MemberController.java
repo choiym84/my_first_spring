@@ -28,13 +28,15 @@ public class MemberController {
 
         try{
             service.join(new Member(0L, form.getName()));
-        }catch(IllegalArgumentException e){
-            model.addAttribute("errorMessage", e.getMessage());
-            model.addAttribute("errorType", "wrong input");
-            return "form";
+
         }catch(IllegalStateException e){
             model.addAttribute("errorMessage", e.getMessage());
             model.addAttribute("errorType", "duplicate input");
+            model.addAttribute("memberForm", form);
+            return "form";
+        }catch(IllegalArgumentException e){
+            model.addAttribute("errorMessage", e.getMessage());
+            model.addAttribute("errorType", "wrong input");
             return "form";
         }
         return "redirect:/member/members";

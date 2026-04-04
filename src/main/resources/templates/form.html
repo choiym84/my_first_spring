@@ -6,7 +6,7 @@
 </head>
 <body>
 <form action="/member/new" method="post">
-    <input type="text" name="name" placeholder="이름을 입력하세요">
+    <input type="text" name="name" th:value="${memberForm.name}" placeholder="이름을 입력하세요">
     <button type="submit">전송</button>
 </form>
 
