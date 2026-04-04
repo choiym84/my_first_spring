@@ -1,12 +1,28 @@
 <!DOCTYPE html>
-<html xmlns:th = "http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>회원 등록</title>
 </head>
 <body>
-  <form action="/member/new" method="post">
-  <input type="text" name="name">
-    <button type="submit">전송</button></form>
+<form action="/member/new" method="post">
+    <input type="text" name="name" placeholder="이름을 입력하세요">
+    <button type="submit">전송</button>
+</form>
+
+<p id="error-message"
+   th:if="${errorMessage}"
+   th:text="${errorMessage}"
+   style="color: red;">
+</p>
+
+<script>
+    setTimeout(() => {
+        const errorMessage = document.getElementById("error-message");
+        if (errorMessage) {
+            errorMessage.style.display = "none";
+        }
+    }, 2000);
+</script>
 </body>
 </html>

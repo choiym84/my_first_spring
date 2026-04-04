@@ -24,9 +24,19 @@ public class MemberController {
     }
 
     @PostMapping("/new")
-    public String joinMember(MemberForm name) {
-//        System.out.println(name);
-        service.join(new Member(0L, name.getName()));
+    public String joinMember(@ModelAttribute MemberForm form, Model model) {
+
+        try{
+            service.join(new Member(0L, form.getName()));
+        }catch(IllegalArgumentException e){
+            model.addAttribute("errorMessage", e.getMessage());
+            model.addAttribute("errorType", "wrong input");
+            return "form";
+        }catch(IllegalStateException e){
+            model.addAttribute("errorMessage", e.getMessage());
+            model.addAttribute("errorType", "duplicate input");
+            return "form";
+        }
         return "redirect:/member/members";
     }
 

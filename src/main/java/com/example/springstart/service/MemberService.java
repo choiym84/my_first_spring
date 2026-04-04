@@ -17,6 +17,9 @@ public class MemberService {
 
     public Member join(Member member) {
         Member foundMember = memoryMemberRepository.findByName(member.getName());
+        if (member.getName() == null || member.getName().isBlank()) {
+            throw new IllegalArgumentException("이름은 비어 있을 수 없습니다.");
+        }
         if (foundMember != null) {
             throw new IllegalStateException("이미 존재하는 회원입니다.");
         }
