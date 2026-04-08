@@ -1,4 +1,4 @@
-package com.example.springstart;
+package com.example.springstart.controller;
 
 import com.example.springstart.service.HelloService;
 import org.springframework.stereotype.Controller;

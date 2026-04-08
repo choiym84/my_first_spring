@@ -1,4 +1,4 @@
-package com.example.springstart;
+package com.example.springstart.controller;
 
 public class MemberForm {
     private String name;

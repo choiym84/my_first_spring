@@ -1,4 +1,4 @@
-package com.example.springstart;
+package com.example.springstart.controller;
 
 import com.example.springstart.domain.Member;
 import com.example.springstart.service.MemberService;
@@ -19,7 +19,8 @@ public class MemberController {
     }
 
     @GetMapping("/new")
-    public String joinMember() {
+    public String joinMember(Model model) {
+        model.addAttribute("memberForm", new MemberForm());
         return "form";
     }
 
@@ -29,16 +30,12 @@ public class MemberController {
         try{
             service.join(new Member(0L, form.getName()));
 
-        }catch(IllegalStateException e){
+        }catch(IllegalStateException | IllegalArgumentException e){
             model.addAttribute("errorMessage", e.getMessage());
-            model.addAttribute("errorType", "duplicate input");
             model.addAttribute("memberForm", form);
             return "form";
-        }catch(IllegalArgumentException e){
-            model.addAttribute("errorMessage", e.getMessage());
-            model.addAttribute("errorType", "wrong input");
-            return "form";
         }
+
         return "redirect:/member/members";
     }
 
