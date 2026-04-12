@@ -28,7 +28,7 @@ public class MemberController {
     public String joinMember(@ModelAttribute MemberForm form, Model model) {
 
         try{
-            service.join(new Member(0L, form.getName()));
+            service.join(new Member(null,form.getName()));
 
         }catch(IllegalStateException | IllegalArgumentException e){
             model.addAttribute("errorMessage", e.getMessage());
