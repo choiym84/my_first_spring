@@ -1,7 +1,9 @@
 package com.example.springstart.service;
 
 import com.example.springstart.domain.Member;
+import com.example.springstart.repository.JpaMemberRepository;
 import com.example.springstart.repository.MemoryMemberRepository;
+import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MemberServiceTest {
 
-    MemberService service = new MemberService(new MemoryMemberRepository());
+    MemberService service = new MemberService(new JpaMemberRepository(null));
 
     @Test
     void join_success() {

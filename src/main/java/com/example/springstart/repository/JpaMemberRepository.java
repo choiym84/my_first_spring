@@ -2,12 +2,13 @@ package com.example.springstart.repository;
 
 import com.example.springstart.domain.Member;
 import jakarta.persistence.EntityManager;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public class JpaMemberRepository {
+public class JpaMemberRepository implements MemberRepository {
 
     private final EntityManager em;
 
@@ -20,20 +21,17 @@ public class JpaMemberRepository {
         return member;
     }
 
-    public List<Member> findAll(){
+    public List<Member> findAll() {
         return em.createQuery("select m from Member m", Member.class)
                 .getResultList();
     }
 
-    public Member findByName(String name){
-        Member member = em.createQuery("select m from Member m where m.name = :name", Member.class)
+    public Member findByName(String name) {
+        return em.createQuery("select m from Member m where m.name = :name", Member.class)
                 .setParameter("name", name)
                 .getResultList()
                 .stream()
                 .findFirst()
                 .orElse(null);
-        return member;
     }
-
-
 }
