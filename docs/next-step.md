@@ -1,25 +1,26 @@
 # Next Step
 
 ## Next Topic
-Connect an H2 database.
+Build the board feature.
 
 ## Why This Is Next
-- The current app stores data only in memory.
-- Restarting the app removes all member data.
-- Before JPA, it is useful to first understand how Spring Boot connects to a database.
+- The member feature has already covered Controller, Service, Repository, DTO, JPA, and Spring Data JPA.
+- The final learning project is a board.
+- The same structure can now be applied to posts.
 
 ## Immediate Tasks
-1. Add H2 dependency.
-2. Configure H2 in `application.properties`.
-3. Run the app and open the H2 console.
-4. Confirm DB connection works.
+1. Finish `PostRepository`.
+2. Create `PostService`.
+3. Create post form DTO.
+4. Create post write page.
+5. Create post list page.
 
 ## Small Cleanup Before or During Next Step
-- Recheck `MemberService.join()` validation order.
-- Keep controller error handling consistent.
-- Optionally clean up old hello practice code later if it gets in the way.
+- Remove unused imports.
+- Remove unused experimental classes if they cause confusion.
+- Keep old member code as a reference unless it blocks board work.
 
 ## Reminder
-- Current member feature is already working.
-- Do not redo finished steps.
-- Move on to DB connection next.
+- Do not redo finished member steps.
+- Use the member feature as a reference pattern.
+- Move on to board CRUD next.

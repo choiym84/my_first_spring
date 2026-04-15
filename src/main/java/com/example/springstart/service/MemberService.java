@@ -29,6 +29,6 @@ public class MemberService {
 
     @Transactional(readOnly = true)
     public List<Member> findMembers() {
-        return this.memberRepository.findAll();
+        return memberRepository.findAll();
     }
 }

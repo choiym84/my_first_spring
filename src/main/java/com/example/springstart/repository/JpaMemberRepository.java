@@ -26,6 +26,11 @@ public class JpaMemberRepository implements MemberRepository {
                 .getResultList();
     }
 
+    @Override
+    public List<Member> findAllByOrderByIdDesc() {
+        return List.of();
+    }
+
     public Member findByName(String name) {
         return em.createQuery("select m from Member m where m.name = :name", Member.class)
                 .setParameter("name", name)
