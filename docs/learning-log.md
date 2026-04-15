@@ -68,12 +68,44 @@
   - `repository`
   - `domain`
 
+### 14. H2 and JPA setup
+- Added H2 database dependency and H2 console support.
+- Added Spring Data JPA dependency.
+- Configured an in-memory H2 database.
+- Learned that H2 console access and application DB usage are different concerns.
+
+### 15. JPA entity and repository
+- Converted `Member` into a JPA entity.
+- Created `JpaMemberRepository` using `EntityManager`.
+- Learned `persist()`, JPQL, and transaction boundaries.
+- Added `@Transactional` to the service layer.
+
+### 16. Repository interface
+- Added `MemberRepository` interface.
+- Made memory and JPA repositories implement the same interface.
+- Changed `MemberService` to depend on `MemberRepository`.
+- Learned why multiple implementations require `@Primary`, `@Qualifier`, or explicit configuration.
+
+### 17. Spring Data JPA
+- Added `SpringDataJpaMemberRepository`.
+- Learned that `JpaRepository` provides common methods such as `save()` and `findAll()`.
+- Learned that custom finder methods such as `findByName()` can be created from method names.
+
+### 18. Board domain start
+- Added `Post` entity.
+- Added fields for title, content, writer, and created time.
+- Started board feature development.
+
 ## Current Structure
 - `controller/HelloController.java`
 - `controller/MemberController.java`
 - `controller/MemberForm.java`
 - `domain/Member.java`
 - `repository/MemoryMemberRepository.java`
+- `repository/JpaMemberRepository.java`
+- `repository/MemberRepository.java`
+- `repository/SpringDataJpaMemberRepository.java`
+- `domain/Post.java`
 - `service/HelloService.java`
 - `service/MemberService.java`
 - templates:
@@ -90,6 +122,8 @@
 - Duplicate name and blank name are handled as errors.
 - Error messages are shown in the form page.
 - `GET /member/members` shows the member list.
+- Member data is now intended to be persisted through JPA/H2 instead of only memory storage.
+- Board domain work has started with the `Post` entity.
 
 ## Key Concepts Learned
 - Spring Boot app startup
@@ -101,8 +135,13 @@
 - Exception handling in web flow
 - PRG pattern
 - Basic testing
+- H2 database
+- JPA entity mapping
+- EntityManager
+- Transaction boundaries
+- Repository interface design
+- Spring Data JPA
 
 ## Notes
-- The app still uses in-memory storage with `MemoryMemberRepository`.
-- Data disappears when the app restarts.
-- The next major topic is DB connection.
+- The member feature has moved from memory storage toward JPA/H2 persistence.
+- The next major topic is building the board CRUD feature.

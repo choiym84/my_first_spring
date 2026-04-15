@@ -21,6 +21,11 @@ public class MemoryMemberRepository implements MemberRepository {
         return new ArrayList<>(store.values());
     }
 
+    @Override
+    public List<Member> findAllByOrderByIdDesc() {
+        return List.of();
+    }
+
     public Member findByName(String name) {
         for (Member m : store.values()) {
             if (m.getName().equals(name)) {
