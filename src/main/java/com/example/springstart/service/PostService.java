@@ -13,7 +13,7 @@ public class PostService {
 
     private final PostRepository postRepository;
 
-    public PostService(PostRepository postRepository){
+    public PostService(PostRepository postRepository) {
         this.postRepository = postRepository;
     }
 
@@ -40,9 +40,13 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
-    public List<Post> findPosts() {
-        return postRepository.findAll();
-//        return postRepository.findAllByOrderByCreatedAtDesc();
+    public List<Post> findPosts(String sort) {
+
+        if ("id".equals(sort)) {
+            return postRepository.findAllByOrderByIdAsc();
+
+        }
+        return postRepository.findAllByOrderByCreatedAtDesc();
     }
 
 }

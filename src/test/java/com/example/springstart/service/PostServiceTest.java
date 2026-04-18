@@ -55,7 +55,7 @@ class PostServiceTest {
         postService.writePost(post1);
         postService.writePost(post2);
 
-        List<Post> posts = postService.findPosts();
+        List<Post> posts = postService.findPosts("latest");
 
         assertEquals("new", posts.get(0).getTitle());
         assertEquals("old", posts.get(1).getTitle());
