@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>게시글 작성</title>
+    <style>
+        :root {
+            --ink: #20201d;
+            --muted: #78746b;
+            --paper: #fffaf0;
+            --line: #e3d8c1;
+            --accent: #1f6f5b;
+            --accent-dark: #164f41;
+            --danger: #b3261e;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            margin: 0;
+            color: var(--ink);
+            font-family: Georgia, "Times New Roman", serif;
+            background:
+                    radial-gradient(circle at top left, rgba(31, 111, 91, 0.18), transparent 34rem),
+                    linear-gradient(135deg, #f7efe0 0%, #fffaf0 48%, #eadfcb 100%);
+        }
+
+        .page {
+            width: min(860px, calc(100% - 32px));
+            margin: 0 auto;
+            padding: 56px 0;
+        }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+
+        .eyebrow {
+            margin: 0 0 8px;
+            color: var(--accent);
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: clamp(36px, 6vw, 64px);
+            line-height: 0.95;
+            letter-spacing: -0.05em;
+        }
+
+        .back-link {
+            color: var(--accent-dark);
+            font-size: 15px;
+            font-weight: 700;
+            text-decoration: none;
+            border-bottom: 2px solid rgba(31, 111, 91, 0.35);
+        }
+
+        .panel {
+            padding: clamp(24px, 5vw, 44px);
+            border: 1px solid var(--line);
+            border-radius: 28px;
+            background: rgba(255, 250, 240, 0.86);
+            box-shadow: 0 24px 80px rgba(64, 49, 25, 0.13);
+            backdrop-filter: blur(10px);
+        }
+
+        .field {
+            margin-bottom: 22px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--muted);
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            padding: 16px 18px;
+            color: var(--ink);
+            font: inherit;
+            font-size: 18px;
+            background: #fffdf8;
+            outline: none;
+            transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+        }
+
+        textarea {
+            min-height: 240px;
+            resize: vertical;
+            line-height: 1.65;
+        }
+
+        input:focus,
+        textarea:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(31, 111, 91, 0.12);
+            transform: translateY(-1px);
+        }
+
+        .actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-top: 30px;
+        }
+
+        button {
+            border: 0;
+            border-radius: 999px;
+            padding: 15px 26px;
+            color: #fffaf0;
+            font: inherit;
+            font-size: 17px;
+            font-weight: 700;
+            background: var(--accent);
+            cursor: pointer;
+            box-shadow: 0 14px 28px rgba(31, 111, 91, 0.22);
+            transition: background 160ms ease, transform 160ms ease;
+        }
+
+        button:hover {
+            background: var(--accent-dark);
+            transform: translateY(-2px);
+        }
+
+        #error-message {
+            margin: 0;
+            color: var(--danger);
+            font-weight: 700;
+        }
+
+        @media (max-width: 640px) {
+            .topbar,
+            .actions {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .page {
+                padding: 32px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+<main class="page">
+    <header class="topbar">
+        <div>
+            <p class="eyebrow">Board Studio</p>
+            <h1>새 글 쓰기</h1>
+        </div>
+        <a class="back-link" href="/posts">목록으로</a>
+    </header>
+
+    <section class="panel">
+        <form action="/posts/new" method="post">
+            <div class="field">
+                <label for="title">Title</label>
+                <input id="title" type="text" name="title" th:value="${postForm.title}" placeholder="제목을 입력하세요">
+            </div>
+
+            <div class="field">
+                <label for="writer">Writer</label>
+                <input id="writer" type="text" name="writer" th:value="${postForm.writer}" placeholder="작성자를 입력하세요">
+            </div>
+
+            <div class="field">
+                <label for="content">Content</label>
+                <textarea id="content" name="content" placeholder="내용을 입력하세요" th:text="${postForm.content}"></textarea>
+            </div>
+
+            <div class="actions">
+                <p id="error-message" th:if="${errorMessage}" th:text="${errorMessage}"></p>
+                <button type="submit">게시글 등록</button>
+            </div>
+        </form>
+    </section>
+</main>
+
+<script>
+    setTimeout(() => {
+        const errorMessage = document.getElementById("error-message");
+        if (errorMessage) {
+            errorMessage.style.display = "none";
+        }
+    }, 5000);
+</script>
+</body>
+</html>
