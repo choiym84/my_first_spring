@@ -78,6 +78,50 @@
             transform: translateY(-2px);
         }
 
+        .toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 18px;
+            padding: 12px;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            background: rgba(255, 250, 240, 0.68);
+        }
+
+        .sort-label {
+            margin: 0;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .sort-form {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sort-select {
+            min-width: 156px;
+            min-height: 42px;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            padding: 0 42px 0 16px;
+            color: var(--ink);
+            font: inherit;
+            font-size: 14px;
+            font-weight: 700;
+            background: #fffdf8;
+            cursor: pointer;
+            outline: none;
+        }
+
+        .sort-select:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(31, 111, 91, 0.12);
+        }
+
         .list {
             display: grid;
             gap: 14px;
@@ -138,8 +182,15 @@
 
         @media (max-width: 720px) {
             .hero,
-            .post-card {
+            .post-card,
+            .toolbar {
                 grid-template-columns: 1fr;
+            }
+
+            .toolbar {
+                align-items: flex-start;
+                border-radius: 24px;
+                flex-direction: column;
             }
 
             .post-date {
@@ -161,6 +212,20 @@
         </div>
         <a class="write-button" href="/posts/new">새 글 작성</a>
     </header>
+
+    <nav class="toolbar" aria-label="게시글 정렬">
+        <p class="sort-label">
+            현재 정렬:
+            <strong th:text="${sort == 'id'} ? '아이디순' : '최신순'">최신순</strong>
+        </p>
+        <form class="sort-form" action="/posts" method="get">
+            <label class="sort-label" for="sort">정렬</label>
+            <select class="sort-select" id="sort" name="sort" onchange="this.form.submit()">
+                <option value="latest" th:selected="${sort == null or sort == 'latest'}">최신순</option>
+                <option value="id" th:selected="${sort == 'id'}">아이디순</option>
+            </select>
+        </form>
+    </nav>
 
     <section class="list" th:if="${!#lists.isEmpty(posts)}">
         <article class="post-card" th:each="post : ${posts}">
